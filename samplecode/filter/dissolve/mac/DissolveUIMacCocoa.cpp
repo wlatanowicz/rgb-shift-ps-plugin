@@ -87,7 +87,6 @@ void DoAbout(void)
 		sPSFileList->BrowseUrl("http://partners.adobe.com");
 	}
 
-	[alert release];
 }
 
 // end DissolveUIMacCocoa.cpp 

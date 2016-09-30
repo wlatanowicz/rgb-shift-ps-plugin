@@ -64,6 +64,10 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 	[redOffset setIntValue:gParams->redOffset];
 	[greenOffset setIntValue:gParams->greenOffset];
 	[blueOffset setIntValue:gParams->blueOffset];
+
+	[histogramView setRedOffset:gParams->redOffset];
+	[histogramView setGreenOffset:gParams->greenOffset];
+	[histogramView setBlueOffset:gParams->blueOffset];
 	
 	NSLog(@"Dissolve Trying to set initial disposition");
 
@@ -72,6 +76,10 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 	[proxyPreview setNeedsDisplay:YES];
 
 	NSLog(@"Dissolve Done with init");
+	
+	histogram = [[Histogram alloc] init];
+	
+	[histogramView setHistogram: histogram];
 
     return self;
 }
@@ -99,19 +107,19 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 	NSLog(@"Dissolve after nsapp abortmodal");
 }
 
-- (IBAction) clearPressed: (id) sender 
-{
-	NSLog(@"Dissolve clear pressed");
-	gParams->disposition = 0;
-	[gDissolveController updateProxy];
-}
 
 - (IBAction) offsetChanged:(id)sender
 {
 	gParams->redOffset = [redOffset intValue];
 	gParams->greenOffset = [greenOffset intValue];
 	gParams->blueOffset = [blueOffset intValue];
+	
+	[histogramView setRedOffset:gParams->redOffset];
+	[histogramView setGreenOffset:gParams->greenOffset];
+	[histogramView setBlueOffset:gParams->blueOffset];
+	
 	[gDissolveController updateProxy];
+	[histogramView setNeedsDisplay:YES];
 }
 
 - (void) updateProxy 

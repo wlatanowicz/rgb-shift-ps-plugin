@@ -10,6 +10,7 @@
                 <outlet property="blueOffset" destination="QY2-9N-hMk" id="asN-bE-v9n"/>
                 <outlet property="dissolveWindow" destination="1" id="53"/>
                 <outlet property="greenOffset" destination="Z3G-kF-GN1" id="98f-DO-6xH"/>
+                <outlet property="histogramView" destination="Ysi-2X-e3G" id="V6E-zP-JFu"/>
                 <outlet property="proxyPreview" destination="19" id="25"/>
                 <outlet property="redOffset" destination="mif-7o-RtJ" id="TLq-jW-W7j"/>
             </connections>
@@ -19,16 +20,16 @@
         <window title="Dissolve" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="601" y="372" width="446" height="369"/>
+            <rect key="contentRect" x="601" y="372" width="446" height="513"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" wantsLayer="YES" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="446" height="369"/>
+                <rect key="frame" x="0.0" y="0.0" width="446" height="513"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button wantsLayer="YES" verticalHuggingPriority="750" id="3">
-                        <rect key="frame" x="336" y="321" width="96" height="32"/>
+                        <rect key="frame" x="336" y="465" width="96" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" image="D4EB7C0F-C7CF-4C64-9C0D-85006631CF65" alignment="center" state="on" borderStyle="border" inset="2" id="4">
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" image="13C6E194-818C-4DF4-8491-CE388B4278A7" alignment="center" state="on" borderStyle="border" inset="2" id="4">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent" base64-UTF8="YES">
@@ -40,7 +41,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" id="5">
-                        <rect key="frame" x="336" y="289" width="96" height="32"/>
+                        <rect key="frame" x="336" y="433" width="96" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" inset="2" id="6">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -54,11 +55,11 @@ Gw
                         </connections>
                     </button>
                     <customView id="19" customClass="DissolveProxyView">
-                        <rect key="frame" x="20" y="169" width="163" height="180"/>
+                        <rect key="frame" x="20" y="313" width="163" height="180"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </customView>
                     <slider verticalHuggingPriority="750" id="Z3G-kF-GN1">
-                        <rect key="frame" x="255" y="133" width="96" height="20"/>
+                        <rect key="frame" x="18" y="236" width="410" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <sliderCell key="cell" state="on" alignment="left" minValue="-1000" maxValue="1000" tickMarkPosition="above" sliderType="linear" id="oPi-EL-72d"/>
                         <connections>
@@ -66,7 +67,7 @@ Gw
                         </connections>
                     </slider>
                     <slider verticalHuggingPriority="750" id="QY2-9N-hMk">
-                        <rect key="frame" x="255" y="94" width="96" height="20"/>
+                        <rect key="frame" x="18" y="197" width="410" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <sliderCell key="cell" state="on" alignment="left" minValue="-1000" maxValue="1000" tickMarkPosition="above" sliderType="linear" id="Khv-u8-1g9"/>
                         <connections>
@@ -74,20 +75,24 @@ Gw
                         </connections>
                     </slider>
                     <slider verticalHuggingPriority="750" id="mif-7o-RtJ">
-                        <rect key="frame" x="255" y="174" width="96" height="20"/>
+                        <rect key="frame" x="18" y="277" width="410" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <sliderCell key="cell" state="on" alignment="left" minValue="-1000" maxValue="1000" tickMarkPosition="above" sliderType="linear" id="eE2-zn-dgk"/>
                         <connections>
                             <action selector="offsetChanged:" target="-2" id="XLB-bR-Cmz"/>
                         </connections>
                     </slider>
+                    <customView id="Ysi-2X-e3G" customClass="HistogramView">
+                        <rect key="frame" x="20" y="20" width="406" height="156"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="413" y="514.5"/>
+            <point key="canvasLocation" x="413" y="586.5"/>
         </window>
     </objects>
     <resources>
-        <image name="D4EB7C0F-C7CF-4C64-9C0D-85006631CF65" width="1" height="1">
+        <image name="13C6E194-818C-4DF4-8491-CE388B4278A7" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

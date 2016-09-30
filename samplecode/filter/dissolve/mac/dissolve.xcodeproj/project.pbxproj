@@ -25,6 +25,8 @@
 		649290DF152E225200654EF7 /* PIUFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 649290DE152E225200654EF7 /* PIUFile.cpp */; };
 		64AFE0831106E463003F8A9F /* DissolveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AFE07F1106E463003F8A9F /* DissolveController.m */; };
 		64AFE0841106E463003F8A9F /* DissolveProxyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AFE0801106E463003F8A9F /* DissolveProxyView.m */; };
+		74BEA1AD1D9DA7220090276F /* Histogram.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BEA1AC1D9DA7220090276F /* Histogram.m */; };
+		74BEA1B01D9DA73A0090276F /* HistogramView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BEA1AF1D9DA73A0090276F /* HistogramView.m */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +124,10 @@
 		64CF8E9E0AA3A6F300120C5A /* ASPragma.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ASPragma.h; sourceTree = "<group>"; };
 		64CF8E9F0AA3A6F300120C5A /* ASConfig.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ASConfig.h; sourceTree = "<group>"; };
 		64FC86591118F81900F6232D /* JSScriptingSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JSScriptingSuite.h; sourceTree = "<group>"; };
+		74BEA1AB1D9DA7220090276F /* Histogram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Histogram.h; sourceTree = "<group>"; };
+		74BEA1AC1D9DA7220090276F /* Histogram.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = Histogram.m; sourceTree = "<group>"; };
+		74BEA1AE1D9DA73A0090276F /* HistogramView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramView.h; sourceTree = "<group>"; };
+		74BEA1AF1D9DA73A0090276F /* HistogramView.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = HistogramView.m; sourceTree = "<group>"; };
 		8D01CCD20486CAD60068D4B7 /* Dissolve.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Dissolve.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		E29FC5AE0B0ADACC00614548 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +149,10 @@
 		089C166AFE841209C02AAC07 /* Dissolve */ = {
 			isa = PBXGroup;
 			children = (
+				74BEA1AE1D9DA73A0090276F /* HistogramView.h */,
+				74BEA1AF1D9DA73A0090276F /* HistogramView.m */,
+				74BEA1AB1D9DA7220090276F /* Histogram.h */,
+				74BEA1AC1D9DA7220090276F /* Histogram.m */,
 				64AFE0821106E463003F8A9F /* DissolveController.h */,
 				64AFE07F1106E463003F8A9F /* DissolveController.m */,
 				64AFE0801106E463003F8A9F /* DissolveProxyView.m */,
@@ -430,7 +440,9 @@
 				6427BDBA09F929E400223601 /* Dissolve.cpp in Sources */,
 				6427BDBB09F929E400223601 /* DissolveRegistry.cpp in Sources */,
 				6427BDBC09F929E400223601 /* DissolveScripting.cpp in Sources */,
+				74BEA1B01D9DA73A0090276F /* HistogramView.m in Sources */,
 				643D6E0F09F92FFB0066B855 /* DialogUtilitiesMac.cpp in Sources */,
+				74BEA1AD1D9DA7220090276F /* Histogram.m in Sources */,
 				643D6E1809F9305D0066B855 /* FilterBigDocument.cpp in Sources */,
 				643D6E1909F9305D0066B855 /* PIUSuites.cpp in Sources */,
 				643D6E1A09F9305D0066B855 /* PIUtilities.cpp in Sources */,
@@ -476,7 +488,7 @@
 				OBJROOT = "$(SYMROOT)../../Objs";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				REZ_PREFIX_FILE = "$(SRCROOT)/../../../common/includes/MachOMacrezXcode.h";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				SYMROOT = ../../../Output/Mac/Debug/;
 				WRAPPER_EXTENSION = plugin;
 			};
@@ -486,6 +498,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -501,7 +514,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PLUGIN_TYPE = 8BFM;
 				PRODUCT_NAME = Dissolve;
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx;
 				SYMROOT = ../../../Output/Mac/Debug/;
 				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = plugin;
@@ -523,7 +536,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OBJROOT = "$(SYMROOT)../../Objs";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				SYMROOT = ../../../Output/Mac/Release/;
 			};
 			name = Release;
@@ -532,6 +545,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
@@ -546,7 +560,7 @@
 				PLUGIN_TYPE = 8BFM;
 				PRODUCT_NAME = Dissolve;
 				REZ_PREFIX_FILE = "$(SRCROOT)/../../../common/includes/MachOMacrezXcode.h";
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx;
 				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = plugin;
 			};
