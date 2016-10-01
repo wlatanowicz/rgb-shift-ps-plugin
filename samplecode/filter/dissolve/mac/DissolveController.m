@@ -137,6 +137,28 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 	NSLog(@"Dissolve Seemed to updateCursor");
 }
 
+- (IBAction)zeroPressed:(id)sender
+{
+	[redOffset setIntValue:0];
+	[greenOffset setIntValue:0];
+	[blueOffset setIntValue:0];
+	[self offsetChanged:nil];
+}
+	
+- (IBAction)peakPressed:(id)sender
+{
+	int redPeak = 500 - (([histogram peak:0] * 1000)/255);
+	int greenPeak = 500 - (([histogram peak:1] * 1000)/255);
+	int bluePeak = 500 - (([histogram peak:2] * 1000)/255);
+	
+	
+
+	[redOffset setIntValue:redPeak];
+	[greenOffset setIntValue:greenPeak];
+	[blueOffset setIntValue:bluePeak];
+	[self offsetChanged:nil];
+}
+	
 @end
 
 /* Carbon entry point and C-callable wrapper functions*/

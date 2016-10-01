@@ -26,5 +26,6 @@
 }
 
 -(NSArray*)data;
+-(int)peak:(int)color;
 
 @end

@@ -45,7 +45,7 @@
 -(double)maxYForLine:(NSArray*)line
 {
 	double maxY;
-	for ( int x=0; x<[line count]; x++ ){
+	for ( int x=1; x<([line count]-1); x++ ){
 		double v = [[line objectAtIndex:x] doubleValue];
 		if ( v > maxY ){
 			maxY = v;
@@ -133,5 +133,6 @@
         
     }    
 }
+
 
 @end

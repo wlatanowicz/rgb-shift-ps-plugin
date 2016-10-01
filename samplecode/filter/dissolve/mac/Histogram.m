@@ -202,4 +202,21 @@
 	}
 }
 
+
+-(int)peak:(int)color
+{
+	NSArray *colorArray = [histogramData objectAtIndex:color];
+	int peakValue = 0;
+	int peakPosition = 0;
+	
+	for (int i=1; i<[colorArray count]-1; i++){
+		int v = [[colorArray objectAtIndex:i] intValue];
+		if ( v > peakValue ){
+			peakValue = v;
+			peakPosition = i;
+		} 
+	} 
+	return peakPosition;
+}
+
 @end
