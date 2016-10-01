@@ -590,6 +590,11 @@ void CreateParametersHandle(void)
 //-------------------------------------------------------------------------------
 void InitParameters(void)
 {
+	gParams->redOffset = 0;
+	gParams->greenOffset = 0;
+	gParams->blueOffset = 0;
+	
+	//@TODO @TODEL
 	gParams->disposition = 1;
 	gParams->ignoreSelection = false;
 	gParams->percent = 50;
