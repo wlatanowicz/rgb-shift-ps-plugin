@@ -138,17 +138,23 @@ resource 'aete' (16000, "Dissolve dictionary", purgeable)
 			NO_REPLY,										/* never a reply */
 			IMAGE_DIRECT_PARAMETER,							/* direct parameter, used by Photoshop */
 			{												/* parameters here, if any */
-				"amount",									/* parameter name */
-				keyAmount,									/* parameter key ID */
+				"redOffset",									/* parameter name */
+				keyRedOffset,									/* parameter key ID */
 				typeFloat,									/* parameter type ID */
-				"dissolve amount",							/* optional description */
+				"red offset",							/* optional description */
 				flagsSingleParameter,						/* parameter flags */
 				
-				"disposition",								// second parameter
-				keyDisposition,								// parameter key ID
-				typeMood,									// parameter type ID
-				"dissolve disposition",						// optional description
-				flagsEnumeratedParameter,					// parameter flags
+				"greenOffset",									/* parameter name */
+				keyGreenOffset,									/* parameter key ID */
+				typeFloat,									/* parameter type ID */
+				"green offset",							/* optional description */
+				flagsSingleParameter,						/* parameter flags */
+				
+				"blueOffset",									/* parameter name */
+				keyBlueOffset,									/* parameter key ID */
+				typeFloat,									/* parameter type ID */
+				"blue offset",							/* optional description */
+				flagsSingleParameter,						/* parameter flags */
 				
 				"ignore selection",							/* optional parameter */
 				keyIgnoreSelection,							/* key ID */

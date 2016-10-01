@@ -30,8 +30,6 @@ SPErr ReadRegistryParameters(void)
 	PIActionDescriptor descriptor = NULL;
 	DescriptorUnitID unit;
 	double percent;
-	DescriptorEnumTypeID type;
-	DescriptorEnumID disposition;
 	Boolean ignoreSelection;
 
 	if (basicSuite == NULL)

@@ -28,7 +28,6 @@ OSErr ReadScriptParameters(Boolean* displayDialog)
 	DescriptorUnitID units;
 	int32 flags = 0;
 	double percent;
-	DescriptorEnumID disposition;
 	Boolean ignoreSelection;
 	DescriptorKeyIDArray array = { keyRedOffset, keyGreenOffset, keyBlueOffset, 0 };
 

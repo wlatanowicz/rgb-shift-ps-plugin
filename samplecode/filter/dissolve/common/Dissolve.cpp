@@ -439,12 +439,7 @@ void DoFilter(void)
 
 				// muck with the pixels in the outData buffer
 				int16 color = 0;
-				int16 expectedPlanes = CSPlanesFromMode(gFilterRecord->imageMode,
-					                                    0);
-
-				if (plane < expectedPlanes)
-					color = gData->color[plane];
-					
+				
 				switch (plane) {
 				  case 0:
 					color = gParams->redOffset;
@@ -627,13 +622,6 @@ void CreateDataHandle(void)
 //-------------------------------------------------------------------------------
 void InitData(void)
 {
-	CopyColor(gData->colorArray[0], gFilterRecord->backColor);
-	SetColor(gData->colorArray[1], 0, 0, 255, 0);
-	SetColor(gData->colorArray[2], 255, 0, 0, 0);
-	SetColor(gData->colorArray[3], 0, 255, 0, 0);
-	for(int a = 1; a < 4; a++)
-		ConvertRGBColorToMode(gFilterRecord->imageMode, gData->colorArray[a]);
-	//CopyColor(gData->color, gData->colorArray[gParams->disposition]);
 	gData->proxyRect.left = 0;
 	gData->proxyRect.right = 0;
 	gData->proxyRect.top = 0;

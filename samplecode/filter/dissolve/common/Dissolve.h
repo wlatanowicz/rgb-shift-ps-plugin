@@ -27,8 +27,8 @@ typedef struct Parameters
 
 typedef struct Data
 {
-	FilterColor color;
-	FilterColor colorArray[4];
+	//FilterColor color; //@TODO @TODEL
+	//FilterColor colorArray[4];
 	Boolean queryForParameters;
 	VRect proxyRect;
 	float scaleFactor;
