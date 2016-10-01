@@ -19,8 +19,6 @@
 
 typedef struct Parameters
 {
-	int16 percent;
-	int16 disposition;
 	int16 redOffset;
 	int16 greenOffset;
 	int16 blueOffset;

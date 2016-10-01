@@ -30,7 +30,7 @@ OSErr ReadScriptParameters(Boolean* displayDialog)
 	double percent;
 	DescriptorEnumID disposition;
 	Boolean ignoreSelection;
-	DescriptorKeyIDArray array = { keyAmount, keyDisposition, 0 };
+	DescriptorKeyIDArray array = { keyRedOffset, keyGreenOffset, keyBlueOffset, 0 };
 
 	if (displayDialog != NULL)
 		*displayDialog = gData->queryForParameters;
@@ -54,19 +54,20 @@ OSErr ReadScriptParameters(Boolean* displayDialog)
 			{
 				switch (key)
 				{
-					case keyAmount:
+					case keyRedOffset:
 						err = readProcs->getUnitFloatProc(token, &units, &percent);
 						if (!err)
-							gParams->percent = (int16)percent;
+							gParams->redOffset = (int16)percent;
 						break;
-					case keyDisposition:
-						err = readProcs->getEnumeratedProc(token, &disposition);
+					case keyGreenOffset:
+						err = readProcs->getUnitFloatProc(token, &units, &percent);
 						if (!err)
-						{
-							gParams->disposition = ScriptToDialog(disposition);
-							CopyColor(gData->color, 
-								      gData->colorArray[gParams->disposition]);
-						}
+							gParams->greenOffset = (int16)percent;
+						break;
+					case keyBlueOffset:
+						err = readProcs->getUnitFloatProc(token, &units, &percent);
+						if (!err)
+							gParams->blueOffset = (int16)percent;
 						break;
 					case keyIgnoreSelection:
 						err = readProcs->getBooleanProc(token, &ignoreSelection);
@@ -102,7 +103,9 @@ OSErr WriteScriptParameters(void)
 	OSErr err = noErr;
 	PIWriteDescriptor token = NULL;
 	PIDescriptorHandle h;
-	const double percent = gParams->percent;
+	const double redOffset = gParams->redOffset;
+	const double greenOffset = gParams->greenOffset;
+	const double blueOffset = gParams->blueOffset;
 
 	PIDescriptorParameters*	descParams = gFilterRecord->descriptorParameters;
 	if (descParams == NULL) return err;
@@ -114,13 +117,20 @@ OSErr WriteScriptParameters(void)
 	if (token != NULL)
 	{
 		writeProcs->putUnitFloatProc(token, 
-			                         keyAmount, 
+			                         keyRedOffset, 
 									 unitPercent, 
-									 &percent);
-		writeProcs->putEnumeratedProc(token, 
-			                          keyDisposition, 
-									  typeMood, 
-									  DialogToScript(gParams->disposition));
+									 &redOffset);
+									 
+		writeProcs->putUnitFloatProc(token, 
+			                         keyGreenOffset, 
+									 unitPercent, 
+									 &greenOffset);
+									 
+		writeProcs->putUnitFloatProc(token, 
+			                         keyBlueOffset, 
+									 unitPercent, 
+									 &blueOffset);
+									 
 		if (gParams->ignoreSelection)
 			writeProcs->putBooleanProc(token, 
 			                           keyIgnoreSelection, 

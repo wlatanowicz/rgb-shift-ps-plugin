@@ -31,7 +31,10 @@
 #define plugInDescription \
 	"An example plug-in filter module for Adobe Photoshop¨."
 
-#define keyDisposition 		'disP'
+#define keyRedOffset 		'redO'
+#define keyGreenOffset 		'greO'
+#define keyBlueOffset 		'bluO'
+
 #define keyIgnoreSelection	'ignS'
 #define typeMood			'mooD'
 #define dispositionClear	'moD0'

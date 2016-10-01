@@ -280,8 +280,10 @@ void DoStart(void)
 	ReadRegistryParameters();
 
 	// save parameters
-	int16 lastDisposition = gParams->disposition;
-	int16 lastPercent = gParams->percent;
+	int16 lastRedOffset = gParams->redOffset;
+	int16 lastBlueOffset = gParams->blueOffset;
+	int16 lastGreenOffset = gParams->greenOffset;
+	
 	Boolean lastIgnoreSelection = gParams->ignoreSelection;
 
 	// does the user want a dialog
@@ -304,8 +306,10 @@ void DoStart(void)
 	else
 	{
 		// restore if the user hit cancel
-		gParams->disposition = lastDisposition;
-		gParams->percent = lastPercent;
+		gParams->redOffset = lastRedOffset;
+		gParams->greenOffset = lastGreenOffset;
+		gParams->blueOffset = lastBlueOffset;
+		
 		gParams->ignoreSelection = lastIgnoreSelection;
 		*gResult = userCanceledErr;
 	}
@@ -593,11 +597,7 @@ void InitParameters(void)
 	gParams->redOffset = 0;
 	gParams->greenOffset = 0;
 	gParams->blueOffset = 0;
-	
-	//@TODO @TODEL
-	gParams->disposition = 1;
 	gParams->ignoreSelection = false;
-	gParams->percent = 50;
 }
 
 
@@ -633,7 +633,7 @@ void InitData(void)
 	SetColor(gData->colorArray[3], 0, 255, 0, 0);
 	for(int a = 1; a < 4; a++)
 		ConvertRGBColorToMode(gFilterRecord->imageMode, gData->colorArray[a]);
-	CopyColor(gData->color, gData->colorArray[gParams->disposition]);
+	//CopyColor(gData->color, gData->colorArray[gParams->disposition]);
 	gData->proxyRect.left = 0;
 	gData->proxyRect.right = 0;
 	gData->proxyRect.top = 0;

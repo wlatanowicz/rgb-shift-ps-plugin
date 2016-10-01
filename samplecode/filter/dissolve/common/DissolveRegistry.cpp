@@ -52,19 +52,26 @@ SPErr ReadRegistryParameters(void)
 	if (descriptor == NULL) goto returnError;
 
 	err = descriptorProcs->GetUnitFloat(descriptor, 
-		                                keyAmount, 
+		                                keyRedOffset, 
 										&unit, 
 										&percent);
 	if (err) goto returnError;
-	gParams->percent = (int16)percent;
+	gParams->redOffset = (int16)percent;
 	
-	err = descriptorProcs->GetEnumerated(descriptor, 
-		                                 keyDisposition, 
-										 &type, 
-										 &disposition);
+	err = descriptorProcs->GetUnitFloat(descriptor, 
+		                                keyGreenOffset, 
+										&unit, 
+										&percent);
 	if (err) goto returnError;
-	gParams->disposition = ScriptToDialog(disposition);
-	CopyColor(gData->color, gData->colorArray[gParams->disposition]);
+	gParams->greenOffset = (int16)percent;
+	
+	err = descriptorProcs->GetUnitFloat(descriptor, 
+		                                keyBlueOffset, 
+										&unit, 
+										&percent);
+	if (err) goto returnError;
+	gParams->blueOffset = (int16)percent;
+	
 	
 	err = descriptorProcs->GetBoolean(descriptor, 
 		                              keyIgnoreSelection, 
@@ -122,15 +129,21 @@ SPErr WriteRegistryParameters(void)
 	if (err) goto returnError;
 
 	err = descriptorProcs->PutUnitFloat(descriptor, 
-		                                keyAmount, 
+		                                keyRedOffset, 
 										unitPercent, 
-										(int32)gParams->percent);
+										(int32)gParams->redOffset);
 	if (err) goto returnError;
 	
-	err = descriptorProcs->PutEnumerated(descriptor, 
-		                                 keyDisposition, 
-										 typeMood, 
-										 DialogToScript(gParams->disposition));
+	err = descriptorProcs->PutUnitFloat(descriptor, 
+		                                keyGreenOffset, 
+										unitPercent, 
+										(int32)gParams->greenOffset);
+	if (err) goto returnError;
+	
+	err = descriptorProcs->PutUnitFloat(descriptor, 
+		                                keyBlueOffset, 
+										unitPercent, 
+										(int32)gParams->blueOffset);
 	if (err) goto returnError;
 	
 	err = descriptorProcs->PutBoolean(descriptor, 

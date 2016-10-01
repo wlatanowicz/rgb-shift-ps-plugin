@@ -1,42 +1,8 @@
-// ADOBE SYSTEMS INCORPORATED
-// Copyright  2009 Adobe Systems Incorporated
-// All Rights Reserved
-//
-// NOTICE:  Adobe permits you to use, modify, and distribute this 
-// file in accordance with the terms of the Adobe license agreement
-// accompanying it.  If you have received this file from a source
-// other than Adobe, then your use, modification, or distribution
-// of it requires the prior written permission of Adobe.
-//-------------------------------------------------------------------------------
-
 #import "DissolveController.h"
 #import "DissolveProxyView.h"
 
 DissolveController *gDissolveController = NULL;
 
-/* Make sure this is unique to you and everyone you might encounter, search for
-"Preventing Name Conflicts" or use this link
-http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/PreferencePanes/Tasks/Conflicts.html
-*/
-
-// get the current value and force an update
-@implementation DissolveTextField
-	
-- (void)keyUp:(NSEvent *)theEvent 
-{
-	NSLog(@"Dissolve start keyUp, %d", [theEvent keyCode]);
-	[gDissolveController updateProxy];
-	NSLog(@"Dissolve end keyUp, %d", gParams->percent);
-}
-
-@end
-
-/* Make sure this is unique to you and everyone you might encounter, search for
-"Preventing Name Conflicts" or use this link
-http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/PreferencePanes/Tasks/Conflicts.html
-*/
-
-// controller for the entire dialog
 @implementation DissolveController
 
 + (DissolveController *) dissolveController 
@@ -126,7 +92,7 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 
 - (void) updateProxy 
 {
-	CopyColor(gData->color, gData->colorArray[gParams->disposition]);
+	//CopyColor(gData->color, gData->colorArray[gParams->disposition]);
 	[proxyPreview setNeedsDisplay:YES];
 }
 
