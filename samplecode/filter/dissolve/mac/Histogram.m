@@ -190,7 +190,6 @@
 			}
 
 			// uh, update the progress bar
-			gFilterRecord->progressProc(++progressDone, progressTotal);
 			
 			// see if the user is impatient or didn't mean to do that
 			if (gFilterRecord->abortProc())
