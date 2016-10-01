@@ -40,6 +40,10 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 	IBOutlet id greenOffset;
 	IBOutlet id blueOffset;
 	
+	IBOutlet NSTextField * redLabel;
+	IBOutlet NSTextField * greenLabel;
+	IBOutlet NSTextField * blueLabel;
+	
 	IBOutlet HistogramView* histogramView;
 	Histogram * histogram;
 	

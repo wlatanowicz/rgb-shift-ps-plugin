@@ -64,10 +64,8 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 	[redOffset setIntValue:gParams->redOffset];
 	[greenOffset setIntValue:gParams->greenOffset];
 	[blueOffset setIntValue:gParams->blueOffset];
-
-	[histogramView setRedOffset:gParams->redOffset];
-	[histogramView setGreenOffset:gParams->greenOffset];
-	[histogramView setBlueOffset:gParams->blueOffset];
+	
+	[self offsetChanged:nil];
 	
 	NSLog(@"Dissolve Trying to set initial disposition");
 
@@ -117,6 +115,10 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 	[histogramView setRedOffset:gParams->redOffset];
 	[histogramView setGreenOffset:gParams->greenOffset];
 	[histogramView setBlueOffset:gParams->blueOffset];
+	
+	[redLabel setFloatValue:(float)gParams->redOffset/10.0];
+	[greenLabel setFloatValue:(float)gParams->greenOffset/10.0];
+	[blueLabel setFloatValue:(float)gParams->blueOffset/10.0];
 	
 	[gDissolveController updateProxy];
 	[histogramView setNeedsDisplay:YES];

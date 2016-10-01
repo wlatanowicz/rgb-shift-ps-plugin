@@ -26,7 +26,7 @@
 -(NSMutableArray*)emptyColorArray
 {
 	NSMutableArray *array = [NSMutableArray array];
-	for ( int i=0; i<1024; i++){
+	for ( int i=0; i<256; i++){
 		[array addObject:[NSNumber numberWithInt:0]];
 	}
 	return array;
@@ -68,35 +68,23 @@
 				int16 colorValue;
 			
 				if (depth == 32){
-					colorValue = (*fPixel * 1023);
+					colorValue = (*fPixel * 255);
 					NSNumber *number = [[histogramData objectAtIndex:color] objectAtIndex: colorValue];
 					number = [NSNumber numberWithInt:([number intValue]+1)];
 					[[histogramData objectAtIndex:color] setObject:number atIndex:colorValue];
 				}
 				else if (depth == 16){
-					colorValue = *bigPixel / 0x3fff;
+					colorValue = *bigPixel / 0xff;
 					NSNumber *number = [[histogramData objectAtIndex:color] objectAtIndex: colorValue];
 					number = [NSNumber numberWithInt:([number intValue]+1)];
 					[[histogramData objectAtIndex:color] setObject:number atIndex:colorValue];
 				}
 				else {
-					colorValue = *pixel*4;
+					colorValue = *pixel;
 					
 					NSNumber *number = [[histogramData objectAtIndex:color] objectAtIndex: colorValue];
 					number = [NSNumber numberWithInt:([number intValue]+1)];
 					[[histogramData objectAtIndex:color] setObject:number atIndex:colorValue];
-					
-					number = [[histogramData objectAtIndex:color] objectAtIndex: colorValue+1];
-					number = [NSNumber numberWithInt:([number intValue]+1)];
-					[[histogramData objectAtIndex:color] setObject:number atIndex:colorValue+1];
-					
-					number = [[histogramData objectAtIndex:color] objectAtIndex: colorValue+2];
-					number = [NSNumber numberWithInt:([number intValue]+1)];
-					[[histogramData objectAtIndex:color] setObject:number atIndex:colorValue+2];
-					
-					number = [[histogramData objectAtIndex:color] objectAtIndex: colorValue+3];
-					number = [NSNumber numberWithInt:([number intValue]+1)];
-					[[histogramData objectAtIndex:color] setObject:number atIndex:colorValue+3];
 				}
 				
 			}
