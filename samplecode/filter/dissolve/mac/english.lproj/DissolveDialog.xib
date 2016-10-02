@@ -23,16 +23,16 @@
         <window title="Dissolve" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="601" y="372" width="446" height="513"/>
+            <rect key="contentRect" x="601" y="372" width="989" height="513"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" wantsLayer="YES" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="446" height="513"/>
+                <rect key="frame" x="0.0" y="0.0" width="989" height="513"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button wantsLayer="YES" verticalHuggingPriority="750" id="3">
                         <rect key="frame" x="227" y="465" width="96" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" image="F106D430-B2C5-4D83-90C1-F1F2AB7DD962" alignment="center" state="on" borderStyle="border" inset="2" id="4">
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" image="47EF5ABA-03A6-4E6A-B312-F0D2A7A393C7" alignment="center" state="on" borderStyle="border" inset="2" id="4">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent" base64-UTF8="YES">
@@ -57,10 +57,6 @@ Gw
                             <action selector="cancelPressed:" target="-2" id="32"/>
                         </connections>
                     </button>
-                    <customView id="19" customClass="DissolveProxyView">
-                        <rect key="frame" x="20" y="313" width="163" height="180"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    </customView>
                     <slider verticalHuggingPriority="750" id="Z3G-kF-GN1">
                         <rect key="frame" x="18" y="236" width="410" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -156,13 +152,17 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <customView id="19" customClass="DissolveProxyView">
+                        <rect key="frame" x="447" y="20" width="522" height="473"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="413" y="586.5"/>
+            <point key="canvasLocation" x="684.5" y="586.5"/>
         </window>
     </objects>
     <resources>
-        <image name="F106D430-B2C5-4D83-90C1-F1F2AB7DD962" width="1" height="1">
+        <image name="47EF5ABA-03A6-4E6A-B312-F0D2A7A393C7" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

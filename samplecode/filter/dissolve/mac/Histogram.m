@@ -105,6 +105,8 @@
 
 -(void) loadData
 {
+	NSLog(@"IM HERE :-)");
+
 	// make the random number generated trully random
 	srand((unsigned)time(NULL));
 
@@ -136,6 +138,15 @@
 	int32 progressTotal = tilesVert * tilesHoriz;
 	int32 progressDone = 0;
 
+	int16 origOutLoPlane = gFilterRecord->outLoPlane;
+	int16 origOutHiPlane = gFilterRecord->outHiPlane;
+	int16 origInLoPlane = gFilterRecord->inLoPlane;
+	int16 origInHiPlane = gFilterRecord->inHiPlane;
+	
+	VRect origOutRect = GetOutRect();
+	VRect origInRect = GetInRect();
+	VRect origMaskRect = GetMaskRect();
+	
 	// loop through each tile makeing sure we don't go over the bounds
 	// of the rectHeight or rectWidth
 	for (int32 vertTile = 0; vertTile < tilesVert; vertTile++)
@@ -173,7 +184,7 @@
 				gFilterRecord->outHiPlane = gFilterRecord->inHiPlane = plane;
 	
 				// update the gFilterRecord with our latest request
-				*gResult = gFilterRecord->advanceState();
+				*gResult = gFilterRecord->advanceState(); //@TODO @TODEL //removal of this line crashes PS... 
 				if (*gResult != noErr) return;
 
 
@@ -199,6 +210,16 @@
 			}
 		}
 	}
+	
+	SetMaskRect(origMaskRect);
+	SetInRect(origInRect);
+	SetOutRect(origOutRect);
+	
+	gFilterRecord->outLoPlane = origOutLoPlane;
+	gFilterRecord->outHiPlane = origOutHiPlane;
+	gFilterRecord->inLoPlane = origInLoPlane;
+	gFilterRecord->inHiPlane = origInHiPlane;
+	
 }
 
 
