@@ -2,7 +2,7 @@
 // Copyright  1993 - 2002 Adobe Systems Incorporated
 // All Rights Reserved
 //
-// NOTICE:  Adobe permits you to use, modify, and distribute this 
+// NOTICE:  Adobe permits you to use, modify, and distribute this
 // file in accordance with the terms of the Adobe license agreement
 // accompanying it.  If you have received this file from a source
 // other than Adobe, then your use, modification, or distribution
@@ -10,10 +10,10 @@
 //-------------------------------------------------------------------------------
 
 // project header files
-#include "Dissolve.h"
-#include "DissolveUI.h"
-#include "DissolveScripting.h"
-#include "DissolveRegistry.h"
+#include "RGBShift.h"
+#include "RGBShiftUI.h"
+#include "RGBShiftScripting.h"
+#include "RGBShiftRegistry.h"
 #include "FilterBigDocument.h"
 #include <time.h>
 #include "Logger.h"
@@ -28,7 +28,7 @@ intptr_t * gDataHandle = NULL;
 int16 * gResult = NULL;		// all errors go here
 SPBasicSuite * sSPBasic = NULL;
 
-// pointers to our data and parameters defined in Dissolve.h
+// pointers to our data and parameters defined in RGBShift.h
 Data * gData = NULL;
 Parameters * gParams = NULL;
 
@@ -55,11 +55,11 @@ void CreateParametersHandle(void);
 void InitParameters(void);
 void CreateDataHandle(void);
 void InitData(void);
-void DissolveRectangle(void* data, 
-					   int32 dataRowBytes, 
-					   void* mask, 
-					   int32 maskRowBytes, 
-					   VRect tileRect, 
+void RGBShiftRectangle(void* data,
+					   int32 dataRowBytes,
+					   void* mask,
+					   int32 maskRowBytes,
+					   VRect tileRect,
 					   int16 colorOffset,
 					   int32 depth);
 
@@ -71,7 +71,7 @@ uint16 newPixel_16(int32 pixel, float offset);
 //-------------------------------------------------------------------------------
 //
 //	PluginMain
-//	
+//
 //	All calls to the plug in module come through this routine.
 //
 //	Inputs:
@@ -98,11 +98,11 @@ DLLExport MACPASCAL void PluginMain(const int16 selector,
 								    intptr_t * data,
 								    int16 * result)
 {
-	
+
 	try {
 
 
-	Logger logIt("Dissolve");
+	Logger logIt("RGBShift");
 	Timer timeIt;
 
 	logIt.Write( "Selector: ", false );
@@ -150,7 +150,7 @@ DLLExport MACPASCAL void PluginMain(const int16 selector,
 		default:
 			break;
 	}
-	
+
 	// unlock our handles used by gData and gParams
 	if (selector != filterSelectorAbout)
 		UnlockHandles();
@@ -175,7 +175,7 @@ DLLExport MACPASCAL void PluginMain(const int16 selector,
 //
 // Makes sure we have valid Data and Parameters handle(s). Locks and initializes
 // these items.
-// 
+//
 // NOTE:
 // This routine is NOT guaranteed to be called by Photoshop. If a user enters the
 // CTRL-F keyboard shortcut to invoke the last filter command this routine will
@@ -206,13 +206,13 @@ void DoParameters(void)
 // DoPrepare
 //
 // Almost identical to DoParameters. Make sure we have valid Data and Parameters
-// handle(s) and lock and initialize as necessary. Sets the bufferSpace and 
+// handle(s) and lock and initialize as necessary. Sets the bufferSpace and
 // maxSpace variables in the gFilterRecord so memory is used at an optimum.
 //
 // NOTE:
 // The fields in the gFilterRecord are not all valid at this stage. We will take a
 // guess at the actual tile size information.
-// 
+//
 //-------------------------------------------------------------------------------
 void DoPrepare(void)
 {
@@ -231,9 +231,9 @@ void DoPrepare(void)
 			InitData();
 		}
 	}
-	
+
 	// we don't need any buffer space
-	gFilterRecord->bufferSpace = 0; 
+	gFilterRecord->bufferSpace = 0;
 
 	// give as much memory back to Photoshop as you can
 	// we only need a tile per plane plus the maskData
@@ -283,7 +283,7 @@ void DoStart(void)
 	int16 lastRedOffset = gParams->redOffset;
 	int16 lastBlueOffset = gParams->blueOffset;
 	int16 lastGreenOffset = gParams->greenOffset;
-	
+
 	Boolean lastIgnoreSelection = gParams->ignoreSelection;
 
 	// does the user want a dialog
@@ -296,7 +296,7 @@ void DoStart(void)
 		isOK = DoUI();
 
 	gData->finished = true;
-	
+
 	// we know we have enough information to run without next time
 	gData->queryForParameters = false;
 
@@ -311,7 +311,7 @@ void DoStart(void)
 		gParams->redOffset = lastRedOffset;
 		gParams->greenOffset = lastGreenOffset;
 		gParams->blueOffset = lastBlueOffset;
-		
+
 		gParams->ignoreSelection = lastIgnoreSelection;
 		*gResult = userCanceledErr;
 	}
@@ -388,12 +388,12 @@ void DoFilter(void)
 	int32 tilesVert = (tileHeight - 1 + rectHeight) / tileHeight;
 	int32 tilesHoriz = (tileWidth - 1 + rectWidth) / tileWidth;
 
-	// Fixed numbers are 16.16 values 
+	// Fixed numbers are 16.16 values
 	// the first 16 bits represent the whole number
 	// the last 16 bits represent the fraction
 	gFilterRecord->inputRate = (int32)1 << 16;
 	gFilterRecord->maskRate = (int32)1 << 16;
- 
+
 	// variables for the progress bar, our plug in is so fast
 	// we probably don't need these
 	int32 progressTotal = tilesVert * tilesHoriz;
@@ -422,7 +422,7 @@ void DoFilter(void)
 
 			// duplicate what's in the inData with the outData
 			SetOutRect(inRect);
-			
+
 			// get the maskRect if the user has given us a selection
 			if (gFilterRecord->haveMask)
 			{
@@ -434,14 +434,14 @@ void DoFilter(void)
 				// we want one plane at a time, small memory foot print is good
 				gFilterRecord->outLoPlane = gFilterRecord->inLoPlane = plane;
 				gFilterRecord->outHiPlane = gFilterRecord->inHiPlane = plane;
-	
+
 				// update the gFilterRecord with our latest request
 				*gResult = gFilterRecord->advanceState();
 				if (*gResult != noErr) return;
 
 				// muck with the pixels in the outData buffer
 				int16 color = 0;
-				
+
 				switch (plane) {
 				  case 0:
 					color = gParams->redOffset;
@@ -458,18 +458,18 @@ void DoFilter(void)
 					break;
 				}
 
-				DissolveRectangle(gFilterRecord->outData,
+				RGBShiftRectangle(gFilterRecord->outData,
 								  gFilterRecord->outRowBytes,
 								  gFilterRecord->maskData,
 								  gFilterRecord->maskRowBytes,
-								  GetOutRect(), 
+								  GetOutRect(),
 								  color,
 								  gFilterRecord->depth);
 			}
 
 			// uh, update the progress bar
 			gFilterRecord->progressProc(++progressDone, progressTotal);
-			
+
 			// see if the user is impatient or didn't mean to do that
 			if (gFilterRecord->abortProc())
 			{
@@ -484,7 +484,7 @@ void DoFilter(void)
 
 //-------------------------------------------------------------------------------
 //
-// DissolveRectangle
+// RGBShiftRectangle
 //
 // This is our core algorithm for changing pixels randomly to a new color. We
 // have to look at the maskPixel and the ignoreSelection parameter to know if we
@@ -492,11 +492,11 @@ void DoFilter(void)
 // because it handles both 8 bit, 16 bit and 32 bit images.
 //
 //-------------------------------------------------------------------------------
-void DissolveRectangle(void* data, 
-					   int32 dataRowBytes, 
-					   void* mask, 
-					   int32 maskRowBytes, 
-					   VRect tileRect, 
+void RGBShiftRectangle(void* data,
+					   int32 dataRowBytes,
+					   void* mask,
+					   int32 maskRowBytes,
+					   VRect tileRect,
 					   int16 colorOffset,
 					   int32 depth)
 {
@@ -512,11 +512,11 @@ void DissolveRectangle(void* data,
 	{
 		for(int32 pixelX = 0; pixelX < rectWidth; pixelX++)
 		{
-			
+
 			bool leaveItAlone = false;
 			if (maskPixel != NULL && !(*maskPixel) && !gParams->ignoreSelection)
 				leaveItAlone = true;
-			
+
 			if (!leaveItAlone)
 			{
 				if (depth == 32){
@@ -541,7 +541,7 @@ void DissolveRectangle(void* data,
 		if (maskPixel != NULL)
 			maskPixel += (maskRowBytes - rectWidth);
 	}
-	
+
 }
 
 float newPixel_f(float pixel, float offset){
@@ -651,35 +651,35 @@ void InitData(void)
 //
 // Global Inputs and Outputs:
 //		FilterRecord *gFilterRecord		inRect, inRowBytes, maskRect, etc. has all
-//										the information needed to call 
+//										the information needed to call
 //										advanceState so inData points to the proxy
-//										pixel data and maskRect points to the 
+//										pixel data and maskRect points to the
 //										selection data
-//			
+//
 //-------------------------------------------------------------------------------
 void SetupFilterRecordForProxy(void)
 {
 	CalcProxyScaleFactor();
 
 	SetInRect(GetFilterRect()); // gFilterRecord->inRect = gFilterRecord->filterRect;
-	
+
 	VRect tempRect = GetInRect();
-	
+
 	ScaleRect(tempRect, 1, (int16)gData->scaleFactor);
 
 	SetInRect(tempRect);
-	
+
 	SetMaskRect(GetInRect()); // gFilterRecord->maskRect = gFilterRecord->inRect;
 
-	// Fixed numbers are 16.16 values 
+	// Fixed numbers are 16.16 values
 	// the first 16 bits represent the whole number
 	// the last 16 bits represent the fraction
 	gFilterRecord->inputRate = (int32)gData->scaleFactor << 16;
 	gFilterRecord->maskRate = (int32)gData->scaleFactor << 16;
- 
+
 	gFilterRecord->inputPadding = 255;
 	gFilterRecord->maskPadding = gFilterRecord->inputPadding;
-	
+
 	gData->proxyWidth = gData->proxyRect.right - gData->proxyRect.left;
 	gData->proxyHeight = gData->proxyRect.bottom - gData->proxyRect.top;
 	gData->proxyPlaneSize = gData->proxyWidth * gData->proxyHeight;
@@ -691,7 +691,7 @@ void SetupFilterRecordForProxy(void)
 //
 // CalcProxyScaleFactor
 //
-// Called by the UI routine to change the size of the Proxy rectangle and 
+// Called by the UI routine to change the size of the Proxy rectangle and
 // calculate the scale factor. This information is needed by the displayPixels
 // routine and the advanceState routine.
 //
@@ -700,58 +700,58 @@ void SetupFilterRecordForProxy(void)
 //
 // Global Inputs and Outputs:
 //		Rect gData->proxyRect				Rectangle for the Proxy to display in
-//		float gData->scaleFactor			Scale factor of the filterRect 
+//		float gData->scaleFactor			Scale factor of the filterRect
 //											to the ProxyRect
-//			
+//
 //-------------------------------------------------------------------------------
 void CalcProxyScaleFactor(void)
 {
 	int32 filterHeight, filterWidth, itemHeight, itemWidth;
 	VPoint fraction;
-	
+
 	VRect filterRect = GetFilterRect();
-	
+
 	// we place a black frame around the proxy and leave a black
 	// between the frame and the actual pixel data
 	ShrinkRect(gData->proxyRect, 2, 2);
 
 	filterHeight = filterRect.bottom - filterRect.top;
 	filterWidth  = filterRect.right  - filterRect.left;
-	
+
 	itemHeight = (gData->proxyRect.bottom - gData->proxyRect.top);
 	itemWidth  = (gData->proxyRect.right  - gData->proxyRect.left);
-	
+
 	// make sure the proxy isn't bigger than the image after the calculation
 	// this will make the proxy half the size for images smaller than the proxy
 	if (itemHeight > filterHeight)
 		itemHeight = filterHeight;
-		
+
 	if (itemWidth > filterWidth)
 		itemWidth = filterWidth;
-	
+
 	fraction.h = ((filterWidth + itemWidth) / itemWidth);
 	fraction.v = ((filterHeight + itemHeight) / itemHeight);
 
 	// calculate the scale factor based on the smaller of height or width
-	if (fraction.h > fraction.v) 
+	if (fraction.h > fraction.v)
 		gData->scaleFactor = ((float)filterWidth + (float)itemWidth) /
 		                      (float)itemWidth;
 	else
-		gData->scaleFactor = ((float)filterHeight + (float)itemHeight) / 
+		gData->scaleFactor = ((float)filterHeight + (float)itemHeight) /
 		                      (float)itemHeight;
 
-	CopyRect(gData->proxyRect, filterRect);	
+	CopyRect(gData->proxyRect, filterRect);
 	ScaleRect(gData->proxyRect, 1, (int16)gData->scaleFactor);
 
 	// recalculate the scale factor based on the actual proxy size
 	// this will reduce rounding errors in the proxy view
-	if (fraction.h > fraction.v) 
-		gData->scaleFactor = (float)filterWidth / 
-		                      (float)(gData->proxyRect.right  - 
+	if (fraction.h > fraction.v)
+		gData->scaleFactor = (float)filterWidth /
+		                      (float)(gData->proxyRect.right  -
 							   gData->proxyRect.left);
 	else
-		gData->scaleFactor = (float)filterHeight / 
-							  (float)(gData->proxyRect.bottom - 
+		gData->scaleFactor = (float)filterHeight /
+							  (float)(gData->proxyRect.bottom -
 							   gData->proxyRect.top);
 }
 
@@ -791,7 +791,7 @@ void ConvertRGBColorToMode(const int16 imageMode, FilterColor& color)
 		if (!(gFilterRecord->colorServices(&csInfo)))
 			for (int16 b = 0; b < 4; b++)
 				color[b] = (int8)csInfo.colorComponents[b];
-	}				   
+	}
 }
 
 
@@ -917,10 +917,10 @@ void CopyColor(FilterColor& destination, const FilterColor& source)
 // Utility routine for setting a FilterColor array from 4 color components
 //
 //-------------------------------------------------------------------------------
-void SetColor(FilterColor& destination, 
-			  const uint8 a, 
-			  const uint8 b, 
-			  const uint8 c, 
+void SetColor(FilterColor& destination,
+			  const uint8 a,
+			  const uint8 b,
+			  const uint8 c,
 			  const uint8 d)
 {
 	destination[0] = a;
@@ -960,12 +960,12 @@ extern "C" void ResetProxyBuffer(void)
 		{
 			gFilterRecord->inLoPlane = plane;
 			gFilterRecord->inHiPlane = plane;
-			
+
 			*gResult = gFilterRecord->advanceState();
 			if (*gResult != noErr) return;
-			
+
 			uint8* inPixel = (uint8*)gFilterRecord->inData;
-			
+
 			for (int32 y = 0; y < gData->proxyHeight; y++)
 			{
 				uint8* start = inPixel;
@@ -1031,12 +1031,12 @@ extern "C" void UpdateProxyBuffer(void)
 				  	color = 0;
 					break;
 				}
-				
-			DissolveRectangle(localData, 
-				              gData->proxyWidth, 
-							  gFilterRecord->maskData, 
-							  gFilterRecord->maskRowBytes, 
-							  gData->proxyRect, 
+
+			RGBShiftRectangle(localData,
+				              gData->proxyWidth,
+							  gFilterRecord->maskData,
+							  gFilterRecord->maskRowBytes,
+							  gData->proxyRect,
 							  color,
 							  8);
 			localData += (gData->proxyPlaneSize);
@@ -1097,4 +1097,4 @@ int32 DisplayPixelsMode(int16 mode)
 	}
 	return (returnMode);
 }
-// end Dissolve.cpp
+// end RGBShift.cpp

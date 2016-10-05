@@ -5,11 +5,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="DissolveController">
+        <customObject id="-2" userLabel="File's Owner" customClass="RGBShiftController">
             <connections>
                 <outlet property="blueLabel" destination="oQC-sJ-a6P" id="9eO-Bj-VEG"/>
                 <outlet property="blueOffset" destination="QY2-9N-hMk" id="asN-bE-v9n"/>
-                <outlet property="dissolveWindow" destination="1" id="53"/>
+                <outlet property="rgbshiftWindow" destination="1" id="53"/>
                 <outlet property="greenLabel" destination="adL-WM-5cP" id="R7S-8J-N4g"/>
                 <outlet property="greenOffset" destination="Z3G-kF-GN1" id="98f-DO-6xH"/>
                 <outlet property="histogramView" destination="Ysi-2X-e3G" id="V6E-zP-JFu"/>
@@ -20,7 +20,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Dissolve" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" animationBehavior="default" id="1">
+        <window title="RGBShift" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="601" y="372" width="989" height="513"/>
@@ -32,7 +32,7 @@
                     <button wantsLayer="YES" verticalHuggingPriority="750" id="3">
                         <rect key="frame" x="227" y="465" width="96" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" image="47EF5ABA-03A6-4E6A-B312-F0D2A7A393C7" alignment="center" state="on" borderStyle="border" inset="2" id="4">
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" image="C827347A-4D7C-460F-8EEE-1AEDD6E3FDDD" alignment="center" state="on" borderStyle="border" inset="2" id="4">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent" base64-UTF8="YES">
@@ -152,7 +152,7 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <customView id="19" customClass="DissolveProxyView">
+                    <customView id="19" customClass="RGBShiftProxyView">
                         <rect key="frame" x="447" y="20" width="522" height="473"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </customView>
@@ -162,7 +162,7 @@ Gw
         </window>
     </objects>
     <resources>
-        <image name="47EF5ABA-03A6-4E6A-B312-F0D2A7A393C7" width="1" height="1">
+        <image name="C827347A-4D7C-460F-8EEE-1AEDD6E3FDDD" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

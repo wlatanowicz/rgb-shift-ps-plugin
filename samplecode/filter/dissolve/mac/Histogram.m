@@ -1,6 +1,6 @@
 //
 //  Histogram.m
-//  dissolve
+//
 //
 //  Created by Wiktor Latanowicz on 29/09/16.
 //
@@ -12,15 +12,15 @@
 
 - (id) init
 {
-	
+
 	histogramData = [[NSArray alloc] initWithObjects:
 	[self emptyColorArray],
 	[self emptyColorArray],
 	[self emptyColorArray],
 	nil];
-	
+
 	[self loadData];
-	return self;	
+	return self;
 }
 
 -(NSMutableArray*)emptyColorArray
@@ -40,7 +40,7 @@
 -(void) loadDataRectange: (void*) data
 	rowBytes: (int32) dataRowBytes
 	mask: (void*) mask
-	rowBytes: (int32) maskRowBytes 
+	rowBytes: (int32) maskRowBytes
 	tile: (VRect) tileRect
 	color: (int16) color
 	depth: (int32) depth
@@ -58,15 +58,15 @@
 	{
 		for(int32 pixelX = 0; pixelX < rectWidth; pixelX++)
 		{
-			
+
 			bool leaveItAlone = false;
 			if (maskPixel != NULL && !(*maskPixel) && !gParams->ignoreSelection)
 				leaveItAlone = true;
-			
+
 			if (!leaveItAlone)
 			{
 				int16 colorValue;
-			
+
 				if (depth == 32){
 					colorValue = (*fPixel * 255);
 					NSNumber *number = [[histogramData objectAtIndex:color] objectAtIndex: colorValue];
@@ -81,12 +81,12 @@
 				}
 				else {
 					colorValue = *pixel;
-					
+
 					NSNumber *number = [[histogramData objectAtIndex:color] objectAtIndex: colorValue];
 					number = [NSNumber numberWithInt:([number intValue]+1)];
 					[[histogramData objectAtIndex:color] setObject:number atIndex:colorValue];
 				}
-				
+
 			}
 			pixel++;
 			bigPixel++;
@@ -127,12 +127,12 @@
 	int32 tilesVert = (tileHeight - 1 + rectHeight) / tileHeight;
 	int32 tilesHoriz = (tileWidth - 1 + rectWidth) / tileWidth;
 
-	// Fixed numbers are 16.16 values 
+	// Fixed numbers are 16.16 values
 	// the first 16 bits represent the whole number
 	// the last 16 bits represent the fraction
 	gFilterRecord->inputRate = (int32)1 << 16;
 	gFilterRecord->maskRate = (int32)1 << 16;
- 
+
 	// variables for the progress bar, our plug in is so fast
 	// we probably don't need these
 	int32 progressTotal = tilesVert * tilesHoriz;
@@ -142,11 +142,11 @@
 	int16 origOutHiPlane = gFilterRecord->outHiPlane;
 	int16 origInLoPlane = gFilterRecord->inLoPlane;
 	int16 origInHiPlane = gFilterRecord->inHiPlane;
-	
+
 	VRect origOutRect = GetOutRect();
 	VRect origInRect = GetInRect();
 	VRect origMaskRect = GetMaskRect();
-	
+
 	// loop through each tile makeing sure we don't go over the bounds
 	// of the rectHeight or rectWidth
 	for (int32 vertTile = 0; vertTile < tilesVert; vertTile++)
@@ -170,7 +170,7 @@
 
 			// duplicate what's in the inData with the outData
 			SetOutRect(inRect);
-			
+
 			// get the maskRect if the user has given us a selection
 			if (gFilterRecord->haveMask)
 			{
@@ -182,26 +182,19 @@
 				// we want one plane at a time, small memory foot print is good
 				gFilterRecord->outLoPlane = gFilterRecord->inLoPlane = plane;
 				gFilterRecord->outHiPlane = gFilterRecord->inHiPlane = plane;
-	
+
 				// update the gFilterRecord with our latest request
-				*gResult = gFilterRecord->advanceState(); //@TODO @TODEL //removal of this line crashes PS... 
+				*gResult = gFilterRecord->advanceState(); //@TODO @TODEL //removal of this line crashes PS...
 				if (*gResult != noErr) return;
 
 
 				[self loadDataRectange:gFilterRecord->outData rowBytes:gFilterRecord->outRowBytes mask:gFilterRecord->maskData
 				 rowBytes:gFilterRecord->maskRowBytes tile:GetOutRect() color:plane depth:gFilterRecord->depth];
 
-//				DissolveRectangle(gFilterRecord->outData,
-//								  gFilterRecord->outRowBytes,
-//								  gFilterRecord->maskData,
-//								  gFilterRecord->maskRowBytes,
-//								  GetOutRect(), 
-//								  color,
-//								  gFilterRecord->depth);
 			}
 
 			// uh, update the progress bar
-			
+
 			// see if the user is impatient or didn't mean to do that
 			if (gFilterRecord->abortProc())
 			{
@@ -210,16 +203,16 @@
 			}
 		}
 	}
-	
+
 	SetMaskRect(origMaskRect);
 	SetInRect(origInRect);
 	SetOutRect(origOutRect);
-	
+
 	gFilterRecord->outLoPlane = origOutLoPlane;
 	gFilterRecord->outHiPlane = origOutHiPlane;
 	gFilterRecord->inLoPlane = origInLoPlane;
 	gFilterRecord->inHiPlane = origInHiPlane;
-	
+
 }
 
 
@@ -228,14 +221,14 @@
 	NSArray *colorArray = [histogramData objectAtIndex:color];
 	int peakValue = 0;
 	int peakPosition = 0;
-	
+
 	for (int i=1; i<[colorArray count]-1; i++){
 		int v = [[colorArray objectAtIndex:i] intValue];
 		if ( v > peakValue ){
 			peakValue = v;
 			peakPosition = i;
-		} 
-	} 
+		}
+	}
 	return peakPosition;
 }
 

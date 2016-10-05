@@ -1,13 +1,13 @@
-#import "DissolveController.h"
-#import "DissolveProxyView.h"
+#import "RGBShiftController.h"
+#import "RGBShiftProxyView.h"
 
-DissolveController *gDissolveController = NULL;
+RGBShiftController *gRGBShiftController = NULL;
 
-@implementation DissolveController
+@implementation RGBShiftController
 
-+ (DissolveController *) dissolveController 
++ (RGBShiftController *) rgbshiftController 
 {
-    return gDissolveController;
+    return gRGBShiftController;
 }
 
 
@@ -17,14 +17,14 @@ DissolveController *gDissolveController = NULL;
     
     NSBundle * plugin = [NSBundle bundleForClass:[self class]];
 
-    if (![plugin loadNibNamed:@"DissolveDialog"
+    if (![plugin loadNibNamed:@"RGBShiftDialog"
                  owner:self
                  topLevelObjects:nil])
 	{
-        NSLog(@"Dissolve failed to load DissolveDialog xib");
+        NSLog(@"RGBShift failed to load RGBShiftDialog xib");
     }
     
-	gDissolveController = self;
+	gRGBShiftController = self;
 
 
 	[redOffset setIntValue:gParams->redOffset];
@@ -33,13 +33,13 @@ DissolveController *gDissolveController = NULL;
 	
 	[self offsetChanged:nil];
 	
-	NSLog(@"Dissolve Trying to set initial disposition");
+	NSLog(@"RGBShift Trying to set initial disposition");
 
-	NSLog(@"Dissolve Trying to set setNeedsDisplay");
+	NSLog(@"RGBShift Trying to set setNeedsDisplay");
 
 	[proxyPreview setNeedsDisplay:YES];
 
-	NSLog(@"Dissolve Done with init");
+	NSLog(@"RGBShift Done with init");
 	
 	histogram = [[Histogram alloc] init];
 	
@@ -50,9 +50,9 @@ DissolveController *gDissolveController = NULL;
 
 - (int) showWindow 
 {
-    [dissolveWindow makeKeyAndOrderFront:nil];
-	int b = [[NSApplication sharedApplication] runModalForWindow:dissolveWindow];
-	[dissolveWindow orderOut:self];
+    [rgbshiftWindow makeKeyAndOrderFront:nil];
+	int b = [[NSApplication sharedApplication] runModalForWindow:rgbshiftWindow];
+	[rgbshiftWindow orderOut:self];
 	return b;
 }
 
@@ -61,14 +61,14 @@ DissolveController *gDissolveController = NULL;
 - (IBAction) okPressed: (id) sender 
 {
 	[NSApp stopModalWithCode:1];
-	NSLog(@"Dissolve after nsapp stopmodal");
+	NSLog(@"RGBShift after nsapp stopmodal");
 }
 
 - (IBAction) cancelPressed: (id) sender 
 {
-	NSLog(@"Dissolve cancel pressed");
+	NSLog(@"RGBShift cancel pressed");
 	[NSApp stopModalWithCode:0];
-	NSLog(@"Dissolve after nsapp abortmodal");
+	NSLog(@"RGBShift after nsapp abortmodal");
 }
 
 
@@ -86,7 +86,7 @@ DissolveController *gDissolveController = NULL;
 	[greenLabel setFloatValue:(float)gParams->greenOffset/10.0];
 	[blueLabel setFloatValue:(float)gParams->blueOffset/10.0];
 	
-	[gDissolveController updateProxy];
+	[gRGBShiftController updateProxy];
 	[histogramView setNeedsDisplay:YES];
 }
 
@@ -98,9 +98,9 @@ DissolveController *gDissolveController = NULL;
 
 - (void) updateCursor
 {
-	NSLog(@"Dissolve Trying to updateCursor");
+	NSLog(@"RGBShift Trying to updateCursor");
 	sPSUIHooks->SetCursor(kPICursorArrow);
-	NSLog(@"Dissolve Seemed to updateCursor");
+	NSLog(@"RGBShift Seemed to updateCursor");
 }
 
 - (IBAction)zeroPressed:(id)sender
@@ -128,16 +128,16 @@ DissolveController *gDissolveController = NULL;
 @end
 
 /* Carbon entry point and C-callable wrapper functions*/
-OSStatus initializeCocoaDissolve(void) 
+OSStatus initializeCocoaRGBShift(void) 
 {
-	[[DissolveController alloc] init];
+	[[RGBShiftController alloc] init];
     return noErr;
 }
 
-OSStatus orderWindowFrontDissolve(void) 
+OSStatus orderWindowFrontRGBShift(void) 
 {
-    int okPressed = [[DissolveController dissolveController] showWindow];
+    int okPressed = [[RGBShiftController rgbshiftController] showWindow];
     return okPressed;
 }
 
-// end DissolveController.m
+// end RGBShiftController.m

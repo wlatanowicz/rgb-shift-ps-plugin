@@ -1,6 +1,6 @@
 //
 //  Histogram.h
-//  dissolve
+//
 //
 //  Created by Wiktor Latanowicz on 29/09/16.
 //
@@ -8,16 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
-#include "Dissolve.h"
+#include "RGBShift.h"
 #include "PIDefines.h"
 #include "PITypes.h"
 #include "PIAbout.h"
 #include "PIFilter.h"
 #include "PIUtilities.h"
 
-#include "DissolveUI.h"
-#include "DissolveScripting.h"
-#include "DissolveRegistry.h"
+#include "RGBShiftUI.h"
+#include "RGBShiftScripting.h"
+#include "RGBShiftRegistry.h"
 #include "FilterBigDocument.h"
 
 

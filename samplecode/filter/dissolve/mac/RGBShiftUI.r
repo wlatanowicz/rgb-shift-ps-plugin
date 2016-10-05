@@ -2,7 +2,7 @@
 // Copyright  1993 - 2002 Adobe Systems Incorporated
 // All Rights Reserved
 //
-// NOTICE:  Adobe permits you to use, modify, and distribute this 
+// NOTICE:  Adobe permits you to use, modify, and distribute this
 // file in accordance with the terms of the Adobe license agreement
 // accompanying it.  If you have received this file from a source
 // other than Adobe, then your use, modification, or distribution
@@ -11,11 +11,11 @@
 //-------------------------------------------------------------------------------
 //
 //	File:
-//		DissolveUI.r
+//		RGBShiftUI.r
 //
 //	Description:
-//		Dialog for the Dissolve Mac project.
+//		Dialog for the RGBShift Mac project.
 //
 //-------------------------------------------------------------------------------
 
-// end DissolveUI.r
+// end RGBShiftUI.r

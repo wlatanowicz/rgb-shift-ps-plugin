@@ -1,6 +1,6 @@
 //
 //  HistogramView.h
-//  dissolve
+//
 //
 //  Created by Wiktor Latanowicz on 29/09/16.
 //
@@ -12,7 +12,7 @@
 @interface HistogramView : NSView {
 
 	Histogram * histogram;
-	
+
 	float redOffset;
 	float greenOffset;
 	float blueOffset;

@@ -2,7 +2,7 @@
 // Copyright  2009 Adobe Systems Incorporated
 // All Rights Reserved
 //
-// NOTICE:  Adobe permits you to use, modify, and distribute this 
+// NOTICE:  Adobe permits you to use, modify, and distribute this
 // file in accordance with the terms of the Adobe license agreement
 // accompanying it.  If you have received this file from a source
 // other than Adobe, then your use, modification, or distribution
@@ -12,13 +12,13 @@
 //-------------------------------------------------------------------------------
 
 #include "PIDefines.h"
-#include "Dissolve.h"
-#include "DissolveUI.h"
+#include "RGBShift.h"
+#include "RGBShiftUI.h"
 #include "DialogUtilities.h"
 #include "FilterBigDocument.h"
 
 #include <Cocoa/Cocoa.h>
-#include "DissolveController.h"
+#include "RGBShiftController.h"
 
 
 //-------------------------------------------------------------------------------
@@ -30,22 +30,22 @@
 //
 // Return: 1 for ok (true) and 0 for cancel
 //-------------------------------------------------------------------------------
-extern DissolveController *gDissolveController;
+extern RGBShiftController *gRGBShiftController;
 
-Boolean DoUI (void) 
+Boolean DoUI (void)
 {
 	// call function to initialize Cocoa
-    OSStatus err = initializeCocoaDissolve();
+    OSStatus err = initializeCocoaRGBShift();
 
 	// call function to show window
 	// it's not an error 1 = ok, 0 = cancel
     if (!err)
-		err = orderWindowFrontDissolve();
+		err = orderWindowFrontRGBShift();
 	else
 		err = 0; // simulate cancel
 
 	sPSUIHooks.Unload();
-	
+
 	return err;
 }
 
@@ -64,21 +64,21 @@ void DoAbout(void)
 	NSLog(@"DoAbout is: %d\n",AboutID);
 
 	NSAlert *alert = [[NSAlert alloc] init];
-	
+
 	[alert addButtonWithTitle:@"OK"];
-	
+
 	[alert addButtonWithTitle:@"http://www.adobe.com"];
-	
+
 	[alert addButtonWithTitle:@"http://partners.adobe.com"];
 
-	[alert setMessageText:@"About Dissolve"];
-	
+	[alert setMessageText:@"About RGBShift"];
+
 	[alert setInformativeText:@"An example plug-in filter module for Adobe Photoshop."];
-	
+
 	[alert setAlertStyle:NSWarningAlertStyle];
-	
+
 	int buttonPressed = [alert runModal];
-	
+
 	if ( buttonPressed == NSAlertFirstButtonReturn) {
 		NSLog(@"DoAbout ok clicked.\n");
 	} else if (buttonPressed == NSAlertSecondButtonReturn) {
@@ -89,4 +89,4 @@ void DoAbout(void)
 
 }
 
-// end DissolveUIMacCocoa.cpp 
+// end RGBShiftUIMacCocoa.cpp

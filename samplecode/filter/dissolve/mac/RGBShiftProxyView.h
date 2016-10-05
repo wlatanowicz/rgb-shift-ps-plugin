@@ -2,7 +2,7 @@
 // Copyright  2009 Adobe Systems Incorporated
 // All Rights Reserved
 //
-// NOTICE:  Adobe permits you to use, modify, and distribute this 
+// NOTICE:  Adobe permits you to use, modify, and distribute this
 // file in accordance with the terms of the Adobe license agreement
 // accompanying it.  If you have received this file from a source
 // other than Adobe, then your use, modification, or distribution
@@ -20,14 +20,14 @@ typedef enum
 	ZoomCommandUninited,
 	ZoomCommandHigh,
 	ZoomCommandLow
-	
+
 	} ZoomCommandState;
 
 /* Make sure this is unique to you and everyone you might encounter, search for
 "Preventing Name Conflicts" or use this link
 http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/PreferencePanes/Tasks/Conflicts.html
 */
-@interface DissolveProxyView : NSView {
+@interface RGBShiftProxyView : NSView {
 	ZoomCommandState currentZoomState;
 }
 
@@ -38,4 +38,4 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 
 @end
 
-// end DissolveProxyView.h
+// end RGBShiftProxyView.h

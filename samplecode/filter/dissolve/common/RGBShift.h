@@ -8,8 +8,8 @@
 // other than Adobe, then your use, modification, or distribution
 // of it requires the prior written permission of Adobe.
 //-------------------------------------------------------------------------------
-#ifndef _DISSOLVE_H
-#define _DISSOLVE_H
+#ifndef _RGBSHIFT_H
+#define _RGBSHIFT_H
 
 #include "PIDefines.h"
 #include "PITypes.h"

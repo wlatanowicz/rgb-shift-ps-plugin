@@ -1,14 +1,14 @@
 #import <Cocoa/Cocoa.h>
-#include "Dissolve.h"
+#include "RGBShift.h"
 #include "Histogram.h"
 #include "HistogramView.h"
 
-OSStatus initializeCocoaDissolve(void);
-OSStatus orderWindowFrontDissolve(void);
+OSStatus initializeCocoaRGBShift(void);
+OSStatus orderWindowFrontRGBShift(void);
 
-@interface DissolveController : NSObject 
+@interface RGBShiftController : NSObject 
 {
-    id dissolveWindow;
+    id rgbshiftWindow;
 
 	id proxyPreview;
 	
@@ -27,6 +27,6 @@ OSStatus orderWindowFrontDissolve(void);
 - (void) updateProxy;
 - (void) updateCursor;
 - (int) showWindow;
-+ (DissolveController *) dissolveController;
++ (RGBShiftController *) rgbshiftController;
 @end
 

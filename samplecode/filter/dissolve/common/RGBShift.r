@@ -13,18 +13,18 @@
 #ifdef __PIMac__
 	#include <Carbon.r>
 	#include "PIGeneral.r"
-	#include "DissolveScripting.h"
+	#include "RGBShiftScripting.h"
 	#include "PIUtilities.r"
 #elif defined(__PIWin__)
 	#define Rez
-	#include "DissolveScripting.h"
+	#include "RGBShiftScripting.h"
 	#include "PIGeneral.h"
 	#include "PIUtilities.r"
 #endif
 
 #include "PIActions.h"
 
-resource 'PiPL' ( 16000, "Dissolve", purgeable )
+resource 'PiPL' ( 16000, "RGBShift", purgeable )
 {
 	{
 		Kind { Filter },
@@ -120,7 +120,7 @@ resource 'PiPL' ( 16000, "Dissolve", purgeable )
 	}
 };
 
-resource 'aete' (16000, "Dissolve dictionary", purgeable)
+resource 'aete' (16000, "RGBShift dictionary", purgeable)
 {
 	1, 0, english, roman,									/* aete version and language specifiers */
 	{
