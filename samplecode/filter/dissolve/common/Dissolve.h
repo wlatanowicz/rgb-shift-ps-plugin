@@ -29,6 +29,7 @@ typedef struct Data
 {
 	//FilterColor color; //@TODO @TODEL
 	//FilterColor colorArray[4];
+	Boolean finished;
 	Boolean queryForParameters;
 	VRect proxyRect;
 	float scaleFactor;

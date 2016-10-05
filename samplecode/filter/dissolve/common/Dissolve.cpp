@@ -295,6 +295,8 @@ void DoStart(void)
 	if (!err && displayDialog)
 		isOK = DoUI();
 
+	gData->finished = true;
+	
 	// we know we have enough information to run without next time
 	gData->queryForParameters = false;
 
@@ -622,6 +624,7 @@ void CreateDataHandle(void)
 //-------------------------------------------------------------------------------
 void InitData(void)
 {
+	gData->finished = false;
 	gData->proxyRect.left = 0;
 	gData->proxyRect.right = 0;
 	gData->proxyRect.top = 0;

@@ -50,6 +50,7 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 
 - (CGFloat)getCurrentScaleFactor
 {
+	
 	/*
 		Get the backing scale factor for the view. Don't bother worrying about width versus height
 		either will work
@@ -76,6 +77,10 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 
 - (void)viewDidChangeBackingProperties
 	{
+	if (gData->finished ){
+		return;
+	}
+	
 	/*
 		You get this message from the OS when your window crosses over monitors. This is the point
 		at which, if you have zoom capability, you will want to zoom your view so it looks to be
@@ -105,6 +110,10 @@ http://developer.apple.com/mac/library/documentation/UserExperience/Conceptual/P
 
 - (void)drawRect:(NSRect)rect 
 {
+
+	if (gData->finished ){
+		return;
+	}
 
 	// I appear to get called on another thread
 	// during first display
