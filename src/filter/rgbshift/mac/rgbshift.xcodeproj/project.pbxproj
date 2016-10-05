@@ -428,7 +428,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf /Applications/Adobe\\ Photoshop\\ CS6/Plug-ins/RGBShift.plugin\ncp -R /Users/wiktor/Desktop/photoshopsdk/pluginsdk/samplecode/Output/Mac/Debug/Debug/RGBShift.plugin /Applications/Adobe\\ Photoshop\\ CS6/Plug-ins/";
+			shellScript = "rm -rf /Applications/Adobe\\ Photoshop\\ CS6/Plug-ins/RGBShift.plugin\ncp -R ../../../Output/Mac/Debug/Debug/RGBShift.plugin /Applications/Adobe\\ Photoshop\\ CS6/Plug-ins/";
 		};
 /* End PBXShellScriptBuildPhase section */
 
