@@ -150,18 +150,51 @@ RGBShiftController *gRGBShiftController = NULL;
 	
 - (IBAction)peakPressed:(id)sender
 {
-	int redPeak = 500 - (([histogram peak:0] * 1000)/255);
-	int greenPeak = 500 - (([histogram peak:1] * 1000)/255);
-	int bluePeak = 500 - (([histogram peak:2] * 1000)/255);
+	[self centerAtRed: [histogram peak:0]
+		  		green: [histogram peak:1]
+				 blue: [histogram peak:2]];
+}
 	
+- (IBAction)massCenterPressed:(id)sender
+{
+	[self centerAtRed: [histogram massCenter:0]
+		  		green: [histogram massCenter:1]
+				 blue: [histogram massCenter:2]];
+}
 	
+- (IBAction)centerAt50Pressed:(id)sender
+{
+	[self centerAtRed: [histogram center:0 at:50]
+		  		green: [histogram center:1 at:50]
+				 blue: [histogram center:2 at:50]];
+}
+
+- (IBAction)centerAt10Pressed:(id)sender
+{
+	[self centerAtRed: [histogram center:0 at:10]
+		  		green: [histogram center:1 at:10]
+				 blue: [histogram center:2 at:10]];
+}
+
+- (IBAction)centerAt90Pressed:(id)sender
+{
+	[self centerAtRed: [histogram center:0 at:90]
+		  		green: [histogram center:1 at:90]
+				 blue: [histogram center:2 at:90]];
+}
+
+- (void)centerAtRed:(int)redCenter green:(int)greenCenter blue:(int)blueCenter
+{
+	int redPeak = 500 - ((redCenter * 1000)/255);
+	int greenPeak = 500 - ((greenCenter * 1000)/255);
+	int bluePeak = 500 - ((blueCenter * 1000)/255);
 
 	[redOffset setIntValue:redPeak];
 	[greenOffset setIntValue:greenPeak];
 	[blueOffset setIntValue:bluePeak];
 	[self offsetsUpdated];
 }
-	
+
 @end
 
 /* Carbon entry point and C-callable wrapper functions*/

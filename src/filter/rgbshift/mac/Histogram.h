@@ -27,5 +27,7 @@
 
 -(NSArray*)data;
 -(int)peak:(int)color;
+-(int)massCenter:(int)color;
+-(int)center:(int)color at:(double)percent;
 
 @end

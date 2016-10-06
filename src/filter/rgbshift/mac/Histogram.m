@@ -232,4 +232,66 @@
 	return peakPosition;
 }
 
+-(int)massCenter:(int)color
+{
+	NSArray *colorArray = [histogramData objectAtIndex:color];
+	
+	double totalMass = 0;
+
+	for (int i=1; i<[colorArray count]-1; i++){
+		totalMass += ( [[colorArray objectAtIndex:i] intValue] + 1 ); 
+	}
+	
+	double halfMass = totalMass / 2.0;
+	
+	totalMass = 0;
+	
+	for (int i=1; i<[colorArray count]-1; i++){
+		totalMass += ( [[colorArray objectAtIndex:i] intValue] + 1 ); 
+		
+		if ( totalMass >= halfMass ){
+			return i;
+		}
+	}
+	
+	return [colorArray count] - 1;
+}
+
+-(int)center:(int)color at:(double)percent
+{
+	NSArray *colorArray = [histogramData objectAtIndex:color];
+	
+	double peakValue = 0;
+
+	for (int i=1; i<[colorArray count]-1; i++){
+		int v = [[colorArray objectAtIndex:i] intValue];
+		if ( v > peakValue ){
+			peakValue = v;
+		}
+	}
+	
+	double triggerValue = peakValue * percent / 100.0;
+
+	int start = 0;
+	int end = [colorArray count]-2;
+	
+	for (int i=1; i<[colorArray count]-1; i++){
+		int v = [[colorArray objectAtIndex:i] intValue];
+		if (v >= triggerValue){
+			start = i;
+			break;
+		}
+	}
+	
+	for (int i=[colorArray count]-2; i >= 1; i--){
+		int v = [[colorArray objectAtIndex:i] intValue];
+		if (v >= triggerValue){
+			end = i;
+			break;
+		}
+	}
+	
+	return ( end - start ) / 2;
+}
+
 @end
