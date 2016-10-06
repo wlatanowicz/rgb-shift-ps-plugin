@@ -20,6 +20,8 @@ OSStatus orderWindowFrontRGBShift(void);
 	IBOutlet NSTextField * greenLabel;
 	IBOutlet NSTextField * blueLabel;
 	
+	IBOutlet NSButton * lockCheckbox;
+	
 	IBOutlet HistogramView* histogramView;
 	Histogram * histogram;
 	

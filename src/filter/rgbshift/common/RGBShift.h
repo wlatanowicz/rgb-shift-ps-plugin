@@ -22,6 +22,7 @@ typedef struct Parameters
 	int16 redOffset;
 	int16 greenOffset;
 	int16 blueOffset;
+	Boolean lockOffsets;
 	Boolean ignoreSelection;
 } Parameters, *ParametersPtr;
 

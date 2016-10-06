@@ -31,7 +31,9 @@ RGBShiftController *gRGBShiftController = NULL;
 	[greenOffset setIntValue:gParams->greenOffset];
 	[blueOffset setIntValue:gParams->blueOffset];
 	
-	[self offsetChanged:nil];
+	[lockCheckbox setState:gParams->lockOffsets ? NSOnState : NSOffState];
+	
+	[self offsetsUpdated];
 	
 	NSLog(@"RGBShift Trying to set initial disposition");
 
@@ -74,6 +76,41 @@ RGBShiftController *gRGBShiftController = NULL;
 
 - (IBAction) offsetChanged:(id)sender
 {
+	if (gParams->lockOffsets){
+	
+		int redPosition = [redOffset intValue];
+		int greenPosition = [greenOffset intValue];
+		int bluePosition = [blueOffset intValue];
+	
+		if ( sender == redOffset ){
+			int diff = redPosition - gParams->redOffset;
+			[greenOffset setIntValue:(greenPosition+diff)];
+			[blueOffset setIntValue:(bluePosition+diff)];
+		}
+		
+		if ( sender == greenOffset ){
+			int diff = greenPosition - gParams->greenOffset;
+			[redOffset setIntValue:(redPosition+diff)];
+			[blueOffset setIntValue:(bluePosition+diff)];
+		}
+	
+		if ( sender == blueOffset ){
+			int diff = bluePosition - gParams->blueOffset;
+			[redOffset setIntValue:(redPosition+diff)];
+			[greenOffset setIntValue:(greenPosition+diff)];
+		}
+	
+	}
+	[self offsetsUpdated];
+}
+
+- (IBAction) lockChanged:(id)sender
+{
+	gParams->lockOffsets = ([lockCheckbox state] == NSOnState);
+}
+
+-(void)offsetsUpdated
+{
 	gParams->redOffset = [redOffset intValue];
 	gParams->greenOffset = [greenOffset intValue];
 	gParams->blueOffset = [blueOffset intValue];
@@ -108,7 +145,7 @@ RGBShiftController *gRGBShiftController = NULL;
 	[redOffset setIntValue:0];
 	[greenOffset setIntValue:0];
 	[blueOffset setIntValue:0];
-	[self offsetChanged:nil];
+	[self offsetsUpdated];
 }
 	
 - (IBAction)peakPressed:(id)sender
@@ -122,7 +159,7 @@ RGBShiftController *gRGBShiftController = NULL;
 	[redOffset setIntValue:redPeak];
 	[greenOffset setIntValue:greenPeak];
 	[blueOffset setIntValue:bluePeak];
-	[self offsetChanged:nil];
+	[self offsetsUpdated];
 }
 	
 @end
