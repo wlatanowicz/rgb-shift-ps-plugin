@@ -283,7 +283,8 @@ void DoStart(void)
 	int16 lastRedOffset = gParams->redOffset;
 	int16 lastBlueOffset = gParams->blueOffset;
 	int16 lastGreenOffset = gParams->greenOffset;
-
+	
+	Boolean lastLockSliders = gParams->lockSliders;
 	Boolean lastIgnoreSelection = gParams->ignoreSelection;
 
 	// does the user want a dialog
@@ -312,6 +313,7 @@ void DoStart(void)
 		gParams->greenOffset = lastGreenOffset;
 		gParams->blueOffset = lastBlueOffset;
 
+		gParams->lockSliders = lastLockSliders;
 		gParams->ignoreSelection = lastIgnoreSelection;
 		*gResult = userCanceledErr;
 	}

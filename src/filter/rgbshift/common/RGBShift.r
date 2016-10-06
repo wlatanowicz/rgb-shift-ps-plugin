@@ -156,6 +156,12 @@ resource 'aete' (16000, "RGBShift dictionary", purgeable)
 				"blue offset",							/* optional description */
 				flagsSingleParameter,						/* parameter flags */
 				
+				"lock sliders",							/* optional parameter */
+				keyLockSliders,							/* key ID */
+				typeBoolean,								/* type */
+				"lock offser sliders",						/* optional desc */
+				flagsSingleParameter,						/* parameter flags */
+				
 				"ignore selection",							/* optional parameter */
 				keyIgnoreSelection,							/* key ID */
 				typeBoolean,								/* type */

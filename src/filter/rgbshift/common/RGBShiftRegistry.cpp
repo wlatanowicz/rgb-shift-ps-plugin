@@ -30,6 +30,7 @@ SPErr ReadRegistryParameters(void)
 	PIActionDescriptor descriptor = NULL;
 	DescriptorUnitID unit;
 	double percent;
+	Boolean lockSliders;
 	Boolean ignoreSelection;
 
 	if (basicSuite == NULL)
@@ -70,6 +71,12 @@ SPErr ReadRegistryParameters(void)
 	if (err) goto returnError;
 	gParams->blueOffset = (int16)percent;
 
+
+	err = descriptorProcs->GetBoolean(descriptor,
+		                              keyLockSliders,
+									  &lockSliders);
+	if (err) goto returnError;
+	gParams->lockSliders = lockSliders;
 
 	err = descriptorProcs->GetBoolean(descriptor,
 		                              keyIgnoreSelection,
@@ -142,6 +149,11 @@ SPErr WriteRegistryParameters(void)
 		                                keyBlueOffset,
 										unitPercent,
 										(int32)gParams->blueOffset);
+	if (err) goto returnError;
+
+	err = descriptorProcs->PutBoolean(descriptor,
+		                              keyLockSliders,
+									  gParams->lockSliders);
 	if (err) goto returnError;
 
 	err = descriptorProcs->PutBoolean(descriptor,

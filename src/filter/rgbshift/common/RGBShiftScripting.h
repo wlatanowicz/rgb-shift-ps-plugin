@@ -34,6 +34,7 @@
 #define keyRedOffset 		'redO'
 #define keyGreenOffset 		'greO'
 #define keyBlueOffset 		'bluO'
+#define keyLockSliders		'locS'
 
 #define keyIgnoreSelection	'ignS'
 #define typeMood			'mooD'

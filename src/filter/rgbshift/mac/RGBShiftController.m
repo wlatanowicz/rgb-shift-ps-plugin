@@ -31,7 +31,7 @@ RGBShiftController *gRGBShiftController = NULL;
 	[greenOffset setIntValue:gParams->greenOffset];
 	[blueOffset setIntValue:gParams->blueOffset];
 	
-	[lockCheckbox setState:gParams->lockOffsets ? NSOnState : NSOffState];
+	[lockCheckbox setState:gParams->lockSliders ? NSOnState : NSOffState];
 	
 	[self offsetsUpdated];
 	
@@ -76,7 +76,7 @@ RGBShiftController *gRGBShiftController = NULL;
 
 - (IBAction) offsetChanged:(id)sender
 {
-	if (gParams->lockOffsets){
+	if (gParams->lockSliders){
 	
 		int redPosition = [redOffset intValue];
 		int greenPosition = [greenOffset intValue];
@@ -106,7 +106,7 @@ RGBShiftController *gRGBShiftController = NULL;
 
 - (IBAction) lockChanged:(id)sender
 {
-	gParams->lockOffsets = ([lockCheckbox state] == NSOnState);
+	gParams->lockSliders = ([lockCheckbox state] == NSOnState);
 }
 
 -(void)offsetsUpdated
