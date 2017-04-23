@@ -285,7 +285,7 @@
 		}
 	}
 	
-	return ( end - start ) / 2;
+	return ( end + start ) / 2;
 }
 
 @end
