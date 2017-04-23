@@ -69,23 +69,17 @@
 
 				if (depth == 32){
 					colorValue = (*fPixel * 255);
-					NSNumber *number = [[histogramData objectAtIndex:color] objectAtIndex: colorValue];
-					number = [NSNumber numberWithInt:([number intValue]+1)];
-					[[histogramData objectAtIndex:color] setObject:number atIndex:colorValue];
 				}
 				else if (depth == 16){
 					colorValue = *bigPixel / 0xff;
-					NSNumber *number = [[histogramData objectAtIndex:color] objectAtIndex: colorValue];
-					number = [NSNumber numberWithInt:([number intValue]+1)];
-					[[histogramData objectAtIndex:color] setObject:number atIndex:colorValue];
 				}
 				else {
 					colorValue = *pixel;
-
-					NSNumber *number = [[histogramData objectAtIndex:color] objectAtIndex: colorValue];
-					number = [NSNumber numberWithInt:([number intValue]+1)];
-					[[histogramData objectAtIndex:color] setObject:number atIndex:colorValue];
 				}
+				
+				NSNumber *number = [[histogramData objectAtIndex:color] objectAtIndex: colorValue];
+				number = [NSNumber numberWithDouble:([number doubleValue]+1)];
+				[[histogramData objectAtIndex:color] setObject:number atIndex:colorValue];
 
 			}
 			pixel++;
@@ -219,11 +213,11 @@
 -(int)peak:(int)color
 {
 	NSArray *colorArray = [histogramData objectAtIndex:color];
-	int peakValue = 0;
+	double peakValue = 0;
 	int peakPosition = 0;
 
 	for (int i=1; i<[colorArray count]-1; i++){
-		int v = [[colorArray objectAtIndex:i] intValue];
+		int v = [[colorArray objectAtIndex:i] doubleValue];
 		if ( v > peakValue ){
 			peakValue = v;
 			peakPosition = i;
@@ -239,7 +233,7 @@
 	double totalMass = 0;
 
 	for (int i=1; i<[colorArray count]-1; i++){
-		totalMass += ( [[colorArray objectAtIndex:i] intValue] + 1 ); 
+		totalMass += ( [[colorArray objectAtIndex:i] doubleValue] + 1 ); 
 	}
 	
 	double halfMass = totalMass / 2.0;
@@ -247,7 +241,7 @@
 	totalMass = 0;
 	
 	for (int i=1; i<[colorArray count]-1; i++){
-		totalMass += ( [[colorArray objectAtIndex:i] intValue] + 1 ); 
+		totalMass += ( [[colorArray objectAtIndex:i] doubleValue] + 1 ); 
 		
 		if ( totalMass >= halfMass ){
 			return i;
@@ -264,7 +258,7 @@
 	double peakValue = 0;
 
 	for (int i=1; i<[colorArray count]-1; i++){
-		int v = [[colorArray objectAtIndex:i] intValue];
+		double v = [[colorArray objectAtIndex:i] doubleValue];
 		if ( v > peakValue ){
 			peakValue = v;
 		}
@@ -276,7 +270,7 @@
 	int end = [colorArray count]-2;
 	
 	for (int i=1; i<[colorArray count]-1; i++){
-		int v = [[colorArray objectAtIndex:i] intValue];
+		double v = [[colorArray objectAtIndex:i] doubleValue];
 		if (v >= triggerValue){
 			start = i;
 			break;
@@ -284,7 +278,7 @@
 	}
 	
 	for (int i=[colorArray count]-2; i >= 1; i--){
-		int v = [[colorArray objectAtIndex:i] intValue];
+		double v = [[colorArray objectAtIndex:i] doubleValue];
 		if (v >= triggerValue){
 			end = i;
 			break;
